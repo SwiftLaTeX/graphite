@@ -8,7 +8,7 @@ if (NOT CMAKE_BUILD_TYPE)
     set_property(CACHE CMAKE_BUILD_TYPE PROPERTY VALUE Release)
 endif()
 
-option(BUILD_SHARED_LIBS "Make library a shared library instead of static" ON)
+option(BUILD_SHARED_LIBS "Make library a shared library instead of static" OFF)
 
 enable_language(CXX C)
 set(CMAKE_CXX_STANDARD 11)
@@ -18,10 +18,10 @@ include_directories(${PROJECT_SOURCE_DIR}/include)
 
 enable_testing()
 
-set(GRAPHITE2_VM_TYPE auto CACHE STRING "Choose the type of vm machine: Auto, Direct or Call.")
-option(GRAPHITE2_NFILEFACE "Compile out the gr_make_file_face* APIs")
+set(GRAPHITE2_VM_TYPE call CACHE STRING "Choose the type of vm machine: Auto, Direct or Call.")
+option(GRAPHITE2_NFILEFACE "Compile out the gr_make_file_face* APIs" ON)
 option(GRAPHITE2_NTRACING "Compile out log segment tracing capability" ON)
-option(GRAPHITE2_TELEMETRY "Add memory usage telemetry")
+option(GRAPHITE2_TELEMETRY "Add memory usage telemetry" OFF)
 set(GRAPHITE2_SANITIZERS "" CACHE STRING "Set compiler sanitizers passed to -fsanitize")
 set(GRAPHITE2_FUZZING_ENGINE libFuzzer.a CACHE STRING "Fuzzing engine to link against for the fuzzers")
 
@@ -82,8 +82,8 @@ if (BUILD_SHARED_LIBS)
 endif()
 
 add_subdirectory(src)
-add_subdirectory(tests)
-add_subdirectory(doc)
+#add_subdirectory(tests)
+#add_subdirectory(doc)
 if (NOT GRAPHITE2_NFILEFACE)
     add_subdirectory(gr2fonttest)
 endif()
